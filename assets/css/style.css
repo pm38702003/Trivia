@@ -1,0 +1,45 @@
+body {
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    z-index: -10;
+    background-position-y: bottom;
+}
+
+.jumbotron{
+    margin-top:100px;
+    background-color: #FFEB00;
+    border-width:2px;
+    border-style:solid; 
+    border-color: #006D91;  
+}
+     
+
+.start-button {
+    width: 50%;
+    margin-top: 50px;
+    background-color: #2D5C16;
+    color:#AFCE0E
+
+}
+
+.start-button:hover {
+    background-color: #347093;
+    color: #01B0F8;
+}
+
+.start-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.counter{
+    color: #347093;
+}
+
+
+#question-div {
+    margin-top: 40px;
+
+}
