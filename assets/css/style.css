@@ -37,9 +37,17 @@ body {
 .counter{
     color: #347093;
 }
-
+.question-element{
+    color: #347093;
+}
 
 #question-div {
-    margin-top: 40px;
+    margin-top: 25px;
 
+}
+
+.clickAnswer:hover {
+    color: red;
+     
+    /* text-decoration: underline overline; */
 }
