@@ -13,6 +13,12 @@ body {
     border-style:solid; 
     border-color: #006D91;  
 }
+
+.navbar{
+    background-color:#006D91;    
+    border-bottom-style: solid;
+    border-bottom-color: #01B0F8;    
+}
      
 
 .start-button {
@@ -47,7 +53,44 @@ body {
 }
 
 .clickAnswer:hover {
-    color: red;
+    color: #b20a0d;
      
     /* text-decoration: underline overline; */
 }
+
+
+
+.dropdown-menu {
+    background-color:#AECE0D;   
+    color:  #305F19;
+}
+.dropdown-menu {
+    background-color:#AECE0D;   
+    
+}
+.dropdown-menu a {
+    color:  #305F19;        
+}
+
+.dropdown-menu a:hover {
+    color:  #305F19;  
+    background-color: #347093;  
+}   
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.25s linear;
+    -moz-transition: opacity 0.25s linear;
+    -o-transition: opacity 0.25s linear;
+    transition: opacity 0.25s linear;
+  }
+ 
+
+.fade.in {
+  opacity: 1;
+}
+
+
+ 
+ 
+ 

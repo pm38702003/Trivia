@@ -3,17 +3,22 @@ var questionArray = [];
 var intervalId;
 var count = 30;
 var intervalId2;
-var count2 = 5;
+var count2 = 3;
 var totalNumberOfQuestions;
 var currentQuestion = 0;
 var numberCorrectAnswers;
 var numberWrongAnswers;
+var diff = "easy";
+var cat = "21";
 
-gameLoad();
+//gameLoad();
 
 function gameLoad() {
+    // diff = $('input:radio[name=Difficulty]:checked').val();
+    // cat = $('input:radio[name=Category]:checked').val();
     getBatchOfQuestions();
 }
+
 
 function requestToken() { // initial request for token
     $.ajax({
@@ -35,10 +40,17 @@ function resetToken() {  // gets called to reset token
     });
 }
 
+//https://opentdb.com/api.php?amount=10&category=24&difficulty=easy&type=multiple
+
 function getBatchOfQuestions() { // checks token status and calls for batch of questions, will reset or request functions as needed. 
+  //  var query = 'https://opentdb.com/api.php?amount=10&category=' + cat + '&difficulty=' + diff + '&type=multiple&token=' + responseToken;
+    var query = 'https://opentdb.com/api.php?amount=10&difficulty=' + diff + '&type=multiple&token=' + responseToken;
+   // alert(query);
     $.ajax({
-        url: "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple&token=" + responseToken,
-        method: "GET"
+        url: query,
+        method: "GET",
+        //use data to pass attributes to query
+
     }).then(function (response) {
         // Code 3: Token Not Found Session Token does not exist.
         // Code 4: Token Empty Session Token has returned all possible questions
@@ -48,10 +60,11 @@ function getBatchOfQuestions() { // checks token status and calls for batch of q
             requestToken();
         }
         else if (response.response_code == 4) {
-            resetTokens();
+            resetToken();
         }
-        else {
+        else {           
             questionArray = response.results;
+            processQuestion();
         }
     });
 }
@@ -62,15 +75,14 @@ $(".start-button").click(function () {
     currentQuestion = 0
     $("#question-div").empty();
     startNewGame();
+    $(".navbar").removeClass("in");
+    $(".navbar").addClass("fade");
 });
 
 function startNewGame() {
-    if (questionArray == []) {
-        gameLoad();
-    }
     $(".start-button").hide();
     $("#counter").show();
-    processQuestion();
+    gameLoad();
 }
 
 function processQuestion() {
@@ -88,9 +100,12 @@ function processQuestion() {
         $("#question-div").append(final2);
         $("#question-div").append(final3).fadeIn(300);
         questionArray = [];  //prep for next game
-        gameLoad();  //prep for next game
+        //  gameLoad();  //prep for next game
         $(".start-button").show().fadeIn(300);
-        //  gameLoad();
+        $(".navbar").removeClass("fade");
+        $(".navbar").addClass("in");
+       
+    
     }
     else {
         run(); //starts timer on each question 
@@ -195,5 +210,13 @@ function shuffle(o) {
     for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
+
+function setDiffVal() {
+    if ($(".start-button").is(':visible')) {
+        diff = $(this).text();
+    }
+}
+
+$(document).on("click", ".drop-diff", setDiffVal);
 
 
