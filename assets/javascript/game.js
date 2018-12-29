@@ -10,6 +10,7 @@ var numberCorrectAnswers;
 var numberWrongAnswers;
 var diff = "easy";
 var cat = "21";
+// Create Base64 Object
 
 //gameLoad();
 
@@ -18,7 +19,6 @@ function gameLoad() {
     // cat = $('input:radio[name=Category]:checked').val();
     getBatchOfQuestions();
 }
-
 
 function requestToken() { // initial request for token
     $.ajax({
@@ -43,9 +43,9 @@ function resetToken() {  // gets called to reset token
 //https://opentdb.com/api.php?amount=10&category=24&difficulty=easy&type=multiple
 
 function getBatchOfQuestions() { // checks token status and calls for batch of questions, will reset or request functions as needed. 
-  //  var query = 'https://opentdb.com/api.php?amount=10&category=' + cat + '&difficulty=' + diff + '&type=multiple&token=' + responseToken;
+    //  var query = 'https://opentdb.com/api.php?amount=10&category=' + cat + '&difficulty=' + diff + '&type=multiple&token=' + responseToken;
     var query = 'https://opentdb.com/api.php?amount=10&difficulty=' + diff + '&type=multiple&token=' + responseToken;
-   // alert(query);
+    // alert(query);
     $.ajax({
         url: query,
         method: "GET",
@@ -62,7 +62,7 @@ function getBatchOfQuestions() { // checks token status and calls for batch of q
         else if (response.response_code == 4) {
             resetToken();
         }
-        else {           
+        else {
             questionArray = response.results;
             processQuestion();
         }
@@ -104,8 +104,8 @@ function processQuestion() {
         $(".start-button").show().fadeIn(300);
         $(".navbar").removeClass("fade");
         $(".navbar").addClass("in");
-       
-    
+
+
     }
     else {
         run(); //starts timer on each question 
@@ -122,17 +122,23 @@ function processQuestion() {
             var answerP = $("<p></p>").html(answers[j]);
             answerP.addClass("clickAnswer");
             $("#question-div").append(answerP);
-            //encrpt correct-answer
-            answerP.attr("correct-answer", questionArray[currentQuestion].correct_answer);
+
+            answerP.attr("correct-answer",  questionArray[currentQuestion].correct_answer);
         }
     }
 }
 
+
 function checkAnswers() {
+
+    // var decryptedBytes = CryptoJS.AES.decrypt($(this).attr("correct-answer"), "My Secret Passphrase");
+    // var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
     stop();
     var selectedAnswer = $(this).html();
-    var correctAnswer = $(this).attr("correct-answer");
+     
+    var correctAnswer =  $(this).attr("correct-answer");
+ 
     $("#question-div").empty();
 
     if (selectedAnswer == correctAnswer) {
